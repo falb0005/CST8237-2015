@@ -4,6 +4,8 @@
 #include <math.h>
 #include <SDL_image.h>
 
+#include <Box2D\Box2D.h>
+
 // Initializing our static member pointer.
 GameEngine* GameEngine::_instance = nullptr;
 
@@ -33,6 +35,24 @@ void Game::InitializeImpl()
   {
     (*itr)->Initialize(_renderer);
   }
+
+  //initialize box 2D world.
+  b2Vec2 gravity(0.0f, 1.0f);
+
+  _world = new b2World(gravity);
+
+  //create the definition for our body.
+  b2BodyDef boxBodyDef;
+  boxBodyDef.type = b2_dynamicBody;
+
+  _boxBody = _world->CreateBody(&boxBodyDef);
+  b2Vec2 boxPosition(250, 0);
+  _boxBody->SetTransform(boxPosition, 0.0f);
+
+  b2PolygonShape boxShape;
+  boxShape.SetAsBox(5, 5);
+
+  _boxFixture = _boxBody->CreateFixture(&boxShape, 0.0f);
 }
 
 void Game::UpdateImpl(float dt)
