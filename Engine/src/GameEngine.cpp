@@ -19,14 +19,14 @@ void GameEngine::Initialize()
 
   _window = SDL_CreateWindow("Engine",
     SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-    640, 640,
+    640, 480,
     SDL_WINDOW_SHOWN);
 
   _renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
 
   IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF | IMG_INIT_WEBP);
 
-  InitializeImpl();
+  InitializeImpl(_renderer);
 
   /* Get the time at the beginning of our game loop so that we can track the
   * elapsed difference. */
@@ -57,7 +57,7 @@ void GameEngine::Update()
 void GameEngine::Draw()
 {
   // Set the draw colour for screen clearing.
-  SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);
+  SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 0);
 
   // Clear the renderer with the current draw colour.
   SDL_RenderClear(_renderer);
