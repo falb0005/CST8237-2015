@@ -1,13 +1,13 @@
 /**
 * \class Player.h
-* \brief A class that represents the player(ship) in the game
+* \brief A class that represents the player(tank) in the game
 * \author  Johnathan Falbo
-* \date January 29, 2014
+* \date February 24, 2015
 */
 
 #pragma once // Preprocessor directive to ensure that this header will only be included once. -- Generally used on Windows
 
-#include "GameObject.h"
+#include "../../Engine/src/GameObject.h"
 #include <SDL.h>
 
 struct SDL_Surface;
@@ -32,14 +32,14 @@ public:
 	* \fn void Player::Initialize()
 	* \brief A function that is used to intilize the player to default values
 	*/
-	void Initialize(SDL_Renderer * renderer);
+	void Initialize(SDL_Renderer * renderer, int angle);
 
 	/**
 	* \fn void Player::Update(float dt)
 	* \brief A function that is used to update the position of the Player.
 	* \param dt The time in fractions of a second since the last pass.
 	*/
-	void Update(float dt);
+	void Update(float dt, float rotationDegrees);
 	/**
 	* \fn void Player::Draw(SDL_Renderer *renderer, float dt)
 	* \brief A function that we’ll use as to define how our
@@ -96,17 +96,32 @@ public:
 	* \param Vector3 The position to set the end point of the player too
 	*/
 	void SetPlayerRotation(Vector3 endPoint);
+	/**
+	* \fn Vector3 Player::GetPlayerRotation()
+	* \brief A function that is used to get the is killed flag of the player
+	* \return bool wether the player is killed
+	*/
+	bool GetIsKilled();
+	/**
+	* \fn void Player::SetIsKilled(bool isKilled)
+	* \brief A function that is used to set the is killed flag of the player
+	* \param bool wether the player is killed
+	*/
+	void SetIsKilled(bool isKilled);
 
 
 protected:
 	Vector3 _directionVector;
 	int _playerSpeed;
 	float _speed;
+	int _playerAngle;
 	float _rotationSpeed;
 	int _screenWidth = 640;
 	int _screenHeight = 480;
 	SDL_Rect _playerRect;
 	SDL_Surface *_playerImage;
 	SDL_Texture *_playerTexture;
+	SDL_Rect posRect;
+	bool _isKilled = false;
 
 };

@@ -51,7 +51,7 @@ void GameEngine::Update()
   // Calculating the time difference since our last loop.
   _engineTimer.Update();
 
-  UpdateImpl(_engineTimer.GetDeltaTime());
+  UpdateImpl(_engineTimer.GetDeltaTime(), _window);
 }
 
 void GameEngine::Draw()

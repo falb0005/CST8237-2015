@@ -5,8 +5,8 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Resources">
-      <UniqueIdentifier>{d684dc75-f33a-4c67-bace-3986c6e64a74}</UniqueIdentifier>
+    <Filter Include="res">
+      <UniqueIdentifier>{753c8574-270d-4f4a-b8ae-ee702e383594}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -33,5 +33,16 @@
     <ClInclude Include="src\Player.h">
       <Filter>Source</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\BackGround.bmp">
+      <Filter>res</Filter>
+    </Image>
+    <Image Include="res\missile.bmp">
+      <Filter>res</Filter>
+    </Image>
+    <Image Include="res\tank0.bmp">
+      <Filter>res</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -2,12 +2,19 @@
 * \class Missile.h
 * \brief A class that represents a fired missiles in the game
 * \author  Johnathan Falbo
-* \date January 29, 2014
+* \date February 24, 2015
 */
 
 #pragma once // Preprocessor directive to ensure that this header will only be included once. -- Generally used on Windows
+#include <SDL.h>
+#include "../../Engine/src/GameObject.h"
 
-#include "GameObject.h"
+#define MAX_BOUNCES 1
+
+struct SDL_Surface;
+struct SDL_Window;
+struct SDL_Texture;
+struct SDL_Rect;
 
 class Missile : public GameObject
 {
@@ -27,21 +34,21 @@ public:
 	* \fn void Missile::Initialize()
 	* \brief A function that is used to initialize the missile to default values
 	*/
-	void Initialize();
+	void Initialize(SDL_Renderer * renderer, int angle);
 
 	/**
 	* \fn void Missile::Update(float)
 	* \brief A function that is used to update the missiles position
 	* \param dt The time in fractions of a second since the last pass.
 	*/
-	void Update(float dt);
+	void Update(float dt, float rotationDegrees);
 	/**
 	* \fn void Missile::Draw(SDL_Renderer *renderer, float dt)
 	* \brief A function that is used to draw the missile
 	* \param renderer The SDL renderer used to draw the object.
 	* \param dt The time in fractions of a second since the last pass.
 	*/
-	void Draw(SDL_Renderer *renderer, float dt);
+	void Draw(SDL_Renderer *renderer, SDL_Window *window, float dt);
 	/**
 	* \fn void Missile::SetPosition(Vector3 pos)
 	* \brief A virtual function that we’ll use as to define how our
@@ -93,24 +100,37 @@ public:
 	void SetMissileRotation(Vector3 posEndPoint);
 	/**
 	* \fn void Missile::SetKillFlag(bool isKilled)
-	* \brief A virtual function that is used to set the kill flag of the missile.
+	* \brief A function that is used to set the kill flag of the missile.
 	* \param isKilled Wether or not the missile has expired or destroyed a asteroid
 	*/
 	void SetKillFlag(bool isKilled);
 	/**
 	* \fn bool Missile::GetKillFlag()
-	* \brief A virtual function that is used to get the kill status of the missile
-	* \return bool Wether or not the missile is expired or has killed an asteroid
+	* \brief A vfunction that is used to set the kill status of the missile
+	* \param bool Wether or not the missile is expired or has killed an asteroid
 	*/
 	bool GetKillFlag();
+	/**
+	* \fn void Missile::SetNumBounces(int numBounces)
+	* \brief A function that is used to set the number of bounces the missile has done.
+	* \param numBounces value to set number of missiles bounces too
+	*/
+	void SetNumBounces(int numBounces);
 
 protected:
 	bool _killFlag = false;
 	Vector3 _directionVector;
 	int _missileSpeed;
-	float _xDistanceTraveled = 0;
-	float _yDistanceTraveled = 0;
+	double _xDistanceTraveled = 0;
+	double _yDistanceTraveled = 0;
 	float _speed;
 	int _screenWidth = 640;
 	int _screenHeight = 480;
+	SDL_Rect _missileRect;
+	SDL_Surface *_missileImage;
+	SDL_Texture *_missileTexture;
+	int _numBounces = 0;
+
+	bool _winState = false;
+	bool _deadState = false;
 };
